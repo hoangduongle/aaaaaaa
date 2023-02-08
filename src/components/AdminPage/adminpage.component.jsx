@@ -4,7 +4,7 @@ function AdminPage({ children }) {
   return (
     <div className="admin-page">
       <div className="admin-page__header">
-        <h4>Hello, Gia Bảo</h4>
+        <h4>Hello, Tú</h4>
         <div className="">
           <i className="fa fa-search"></i>
           <i className="fa fa-bell"></i>
@@ -13,7 +13,7 @@ function AdminPage({ children }) {
               src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000"
               alt=""
             />
-            <span>Gia Bảo</span>
+            <span>Tú Phạm</span>
             <i className="fa fa-angle-down"></i>
           </div>
         </div>
