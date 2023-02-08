@@ -18,12 +18,10 @@ const TableStaff = (props) => {
 
   let range = [];
 
-  // if (props.limit !== undefined) {
-  //   let page = Math.floor(props.bodyData.length / Number(props.limit));
-  //   pages = props.bodyData.length % Number(props.limit) === 0 ? page : page + 1;
+  let page = Math.floor(props.bodyData.length / Number(props.limit));
+  pages = props.bodyData.length % Number(props.limit) === 0 ? page : page + 1;
 
-  //   range = [...Array(pages).keys()];
-  // }
+  range = [...Array(pages).keys()];
 
   const [currPage, setCurrPage] = useState(0);
   const [popupEdit, setPopupEdit] = useState(false);
