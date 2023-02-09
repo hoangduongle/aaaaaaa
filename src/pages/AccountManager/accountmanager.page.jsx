@@ -33,7 +33,7 @@ function AccountManager() {
       //loading = true
       const result = await viewStaffs.view();
       setStaffs(result);
-      console.log('Staffs API: ',result);
+      console.log("Staffs API: ", result);
       //loading = false
     };
     fetchApi();

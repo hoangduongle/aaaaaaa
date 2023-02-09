@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useEffect } from "react";
+import CustomerEdit from "../Customer/customeredit.component";
 import "./table.scss";
 
 const TableCustomer = (props) => {
@@ -31,8 +32,22 @@ const TableCustomer = (props) => {
     setCurrPage(page);
   };
 
+  const [showModelEdit, setModelEdit] = useState(false);
+  const [dataCustomer, setDataCustomer] = useState();
+
+  const showEdit = ({ props }) => {
+    console.log(props);
+    setDataCustomer(props);
+    setModelEdit(!showModelEdit);
+  };
+
   return (
     <div>
+      {showModelEdit ? (
+        <CustomerEdit closeModel={setModelEdit} data={dataCustomer} />
+      ) : (
+        Fragment
+      )}
       <div className="table-wrapper">
         <table>
           {props.headData && props.renderHead ? (
@@ -47,7 +62,7 @@ const TableCustomer = (props) => {
           {props.bodyData && props.renderBody ? (
             <>
               {dataShow.map((item, index) => (
-                <tbody key={index}>
+                <tbody key={index} onClick={() => showEdit(item)}>
                   <tr>
                     <td>#{item.customerId}</td>
                     <td>

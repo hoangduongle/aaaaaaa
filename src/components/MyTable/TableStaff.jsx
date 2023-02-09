@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import "./table.scss";
 import UserEdit from "../User/useredit.component";
+import ConfirmPopup from "../Confirm/ConfirmPopup";
 
 const TableStaff = (props) => {
   const [dataShow, setDataShow] = useState([]);
@@ -25,6 +26,8 @@ const TableStaff = (props) => {
 
   const [currPage, setCurrPage] = useState(0);
   const [popupEdit, setPopupEdit] = useState(false);
+  const [popupDelete, setPopupDelete] = useState(false);
+  const [newId, setNewId] = useState("");
 
   const selectPage = (page) => {
     const start = Number(props.limit) * page;
@@ -35,17 +38,33 @@ const TableStaff = (props) => {
   };
 
   const showEdit = (props) => {
-    console.log("Edit Staff Id:", props);
+    setNewId(props);
     setPopupEdit(!popupEdit);
   };
 
   const showDelete = (props) => {
-    console.log("Delete Staff Id:", props);
+    setNewId(props);
+    setPopupDelete(!popupDelete);
   };
 
   return (
     <div>
-      {popupEdit ? <UserEdit /> : Fragment}
+      {popupEdit ? (
+        <UserEdit closeModel={setPopupEdit} data={newId} />
+      ) : (
+        Fragment
+      )}
+      {popupDelete ? (
+        <ConfirmPopup
+          closeModel={setPopupDelete}
+          title={"Bạn có muốn xoá nhân viên này không?"}
+          btnYes={"Có"}
+          btnNo={"Không"}
+          id={newId}
+        />
+      ) : (
+        Fragment
+      )}
       <div className="table-wrapper">
         <table>
           {props.headData && props.renderHead ? (
@@ -76,7 +95,9 @@ const TableStaff = (props) => {
                       <Icon
                         className="icon"
                         icon="bx:bx-edit-alt"
-                        onClick={() => showEdit(item.staffId)}
+                        onClick={() => {
+                          showEdit(item);
+                        }}
                       />
                       <Icon
                         className="icon"
