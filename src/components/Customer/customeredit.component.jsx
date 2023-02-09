@@ -14,18 +14,22 @@ function CustomerEdit({ data, closeModel }) {
             />
             <div className="right">
               <label>Mã khách hàng:</label>
-              <input type="text" value={"data.customerId"} readOnly />
+              <input type="text" value={data.customerId} readOnly />
               <label>Tên khách hàng:</label>
-              <input type="text" defaultValue={"data.customerName"} />
+              <input type="text" defaultValue={data.customerName} />
               <label>Số điện thoại:</label>
-              <input type="text" defaultValue={"data.theAccount.phoneNumber"} />
+              <input type="text" defaultValue={data.theAccount.phoneNumber} />
               <label>Địa chỉ:</label>
-              <input type="text" defaultValue={"data.address"} />
+              <input type="text" defaultValue={data.address} />
               <label>Email:</label>
-              <input type="text" value={"data.email"} />
+              <input type="text" value={data.email} />
               <label>Trạng thái: </label>
               <br></br>
-              <input className="checkBoxStatus type" type="checkbox" />
+              <input
+                className="checkBoxStatus type"
+                type="checkbox"
+                defaultChecked={data.theAccount.status}
+              />
               {/* theAccount.status */}
               <div style={{ display: "flex", float: "right" }}>
                 <button type="submit" className="btn">

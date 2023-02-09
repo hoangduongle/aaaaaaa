@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useEffect } from "react";
 import "./table.scss";
+import ComboEdit from "../Combo/comboedit.component";
+import { Icon } from "@iconify/react";
 
-const TableCustomer = (props) => {
+const TableCombo = (props) => {
   const [dataShow, setDataShow] = useState([]);
 
   useEffect(() => {
@@ -30,9 +32,15 @@ const TableCustomer = (props) => {
     setDataShow(props.bodyData.slice(start, end));
     setCurrPage(page);
   };
+  const [popupEdit, setPopupEdit] = useState(false);
+
+  const showEdit = (props) => {
+    setPopupEdit(!popupEdit);
+  };
 
   return (
     <div>
+      {popupEdit ? <ComboEdit closeModel={setPopupEdit} data={""} /> : Fragment}
       <div className="table-wrapper">
         <table>
           {props.headData && props.renderHead ? (
@@ -47,25 +55,46 @@ const TableCustomer = (props) => {
           {props.bodyData && props.renderBody ? (
             <>
               {dataShow.map((item, index) => (
-                <tbody key={index}>
+                <tbody
+                  key={index}
+                  onClick={() => {
+                    showEdit(item);
+                  }}
+                >
                   <tr>
-                    <td>#{item.customerId}</td>
+                    <td>#{"item.id"}</td>
                     <td>
-                      {item.customerName === null ? "null" : item.customerName}
+                      {/* {item.customerName === null ? "null" : item.customerName} */}
                     </td>
                     <td>
-                      {item.theAccount === null
+                      {/* {item.theAccount === null
                         ? "null"
-                        : item.theAccount.phoneNumber}
+                        : item.theAccount.phoneNumber} */}
                     </td>
-                    <td>{item.address === null ? "null" : item.address}</td>
-                    <td>{item.email === null ? "null" : item.email}</td>
                     <td>
-                      {item.theAccount === null || !item.theAccount.status ? (
+                      {/* {item.address === null ? "null" : item.address} */}
+                    </td>
+                    <td>{/* {item.email === null ? "null" : item.email} */}</td>
+                    <td>
+                      {/* {item.theAccount === null || !item.theAccount.status ? (
                         <td className="status red">Không hoạt động</td>
                       ) : (
                         <td className="status green">Hoạt động</td>
-                      )}
+                      )} */}
+                    </td>
+                    <td>
+                      <Icon className="icon" icon="bx:show-alt" />
+                      <Icon
+                        className="icon"
+                        icon="bx:bx-edit-alt"
+                        onClick={() => {
+                          showEdit(item);
+                        }}
+                      />
+                      <Icon
+                        className="icon"
+                        icon="material-symbols:delete-outline-rounded"
+                      />
                     </td>
                   </tr>
                 </tbody>
@@ -93,4 +122,4 @@ const TableCustomer = (props) => {
   );
 };
 
-export default TableCustomer;
+export default TableCombo;

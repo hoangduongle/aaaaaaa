@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { useEffect } from "react";
 import CustomerEdit from "../Customer/customeredit.component";
+
+
 import "./table.scss";
 
 const TableCustomer = (props) => {
@@ -35,7 +37,7 @@ const TableCustomer = (props) => {
   const [showModelEdit, setModelEdit] = useState(false);
   const [dataCustomer, setDataCustomer] = useState();
 
-  const showEdit = ({ props }) => {
+  const showEdit = (props) => {
     console.log(props);
     setDataCustomer(props);
     setModelEdit(!showModelEdit);
@@ -45,6 +47,7 @@ const TableCustomer = (props) => {
     <div>
       {showModelEdit ? (
         <CustomerEdit closeModel={setModelEdit} data={dataCustomer} />
+  
       ) : (
         Fragment
       )}

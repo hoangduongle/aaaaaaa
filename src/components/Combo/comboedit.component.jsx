@@ -1,6 +1,5 @@
 import React from "react";
 import "./comboedit.style.scss";
-import logo from "../../img/test.jpg";
 import Select from "react-select";
 
 const options = [
@@ -8,12 +7,17 @@ const options = [
   { value: "strawberry", label: "Xôi chiên phồng" },
   { value: "vanilla", label: "Mực xào sa tế" },
 ];
-function ComboEdit() {
+function ComboEdit({ closeModel }) {
   return (
     <div className="combo-edit">
       <div className="combo-left">
         <div className="combo-edit_image">
-          <img src={logo} alt="Logo" />
+          <img
+            src={
+              "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000"
+            }
+            alt="Logo"
+          />
         </div>
         <div className="combo-edit_infor">
           <form className="frm-combo-edit">
@@ -96,7 +100,7 @@ function ComboEdit() {
           <button type="submit" className="btn-success">
             Lưu
           </button>
-          <button type="submit" className="btn-danger">
+          <button className="btn-danger" onClick={() => closeModel(false)}>
             Huỷ
           </button>
         </div>

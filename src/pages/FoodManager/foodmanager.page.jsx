@@ -3,6 +3,7 @@ import AdminPage from "../../components/AdminPage/adminpage.component";
 import TableFood from "../../components/MyTable/TableFood";
 import * as viewFoods from "../../api/Food/viewFoods";
 import "./foodmanager.style.scss";
+import TableCombo from "../../components/MyTable/TableCombo";
 function FoodManager() {
   const foodTableHeadTab1 = [
     "Mã món ăn",
@@ -17,6 +18,7 @@ function FoodManager() {
     "Mã combo",
     "Tên combo",
     "Giá (VND)",
+    "Category",
     "Trạng thái",
     "Hành động",
   ];
@@ -121,7 +123,7 @@ function FoodManager() {
                 <div className="col-12">
                   <div className="card">
                     <div className="card__body">
-                      <TableFood
+                      <TableCombo
                         limit="5"
                         headData={foodTableHeadTab2}
                         renderHead={(item, index) => renderHead(item, index)}

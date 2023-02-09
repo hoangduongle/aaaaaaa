@@ -1,6 +1,8 @@
 import { Icon } from "@iconify/react";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useEffect } from "react";
+import { viewCategories } from "../../api/Food/viewFoods";
+import DishEdit from "../Dish/dishedit.component";
 import "./table.scss";
 
 const TableFood = (props) => {
@@ -32,8 +34,21 @@ const TableFood = (props) => {
     setCurrPage(page);
   };
 
+  const [popupEdit, setPopupEdit] = useState(false);
+  const [newData, setNewData] = useState("");
+
+  const showEdit = (props) => {
+    setNewData(props);
+    setPopupEdit(!popupEdit);
+  };
+
   return (
     <div>
+      {popupEdit ? (
+        <DishEdit closeModel={setPopupEdit} data={newData} />
+      ) : (
+        Fragment
+      )}
       <div className="table-wrapper">
         <table>
           {props.headData && props.renderHead ? (
@@ -54,16 +69,20 @@ const TableFood = (props) => {
                     <td>{item.foodName === null ? "null" : item.foodName}</td>
                     <td>{item.price === null ? "null" : item.price}</td>
                     <td>{item.foodName === null ? "null" : item.foodName}</td>
-                    <td>
-                      {!item.status ? (
-                        <td className="status red">Không hoạt động</td>
-                      ) : (
-                        <td className="status green">Hoạt động</td>
-                      )}
-                    </td>
+                    {item.status ? (
+                      <td className="status green">Hoạt động</td>
+                    ) : (
+                      <td className="status red">Không hoạt động</td>
+                    )}
                     <td>
                       <Icon className="icon" icon="bx:show-alt" />
-                      <Icon className="icon" icon="bx:bx-edit-alt" />
+                      <Icon
+                        className="icon"
+                        icon="bx:bx-edit-alt"
+                        onClick={() => {
+                          showEdit(item);
+                        }}
+                      />
                       <Icon
                         className="icon"
                         icon="material-symbols:delete-outline-rounded"

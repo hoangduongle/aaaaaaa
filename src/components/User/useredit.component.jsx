@@ -46,7 +46,6 @@ function UserEdit({ data, closeModel }) {
               type="text"
               defaultValue={data.theAccountForStaff.phoneNumber}
             />
-
             <label>
               Địa chỉ: <span className="proirity">*</span>
             </label>
@@ -54,8 +53,11 @@ function UserEdit({ data, closeModel }) {
 
             <label>Trạng thái: </label>
             <br></br>
-            <input className="checkBoxStatus type" type="checkbox" />
-
+            <input
+              className="checkBoxStatus type"
+              type="checkbox"
+              defaultChecked={data.staffStatus}
+            />
             <div style={{ display: "flex", float: "right" }}>
               <button type="submit" className="btn">
                 Lưu
