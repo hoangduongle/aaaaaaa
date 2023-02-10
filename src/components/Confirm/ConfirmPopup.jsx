@@ -1,19 +1,22 @@
 import "./ConfirmPopup.scss";
 
-function ConfirmPopup({ closeModel, title, btnYes, btnNo, id }) {
+function ConfirmPopup({ closeModel, title, btnYes, btnNo, confirm }) {
   return (
     <div className="modelBackground">
       <div className="confirm-container">
         <h3>Thông báo</h3>
         <p>{title}</p>
         <div className="confirm-button">
-          <button type="submit" className="btn">
+          <button type="submit" className="btn" onClick={() => confirm(true)}>
             {btnYes}
           </button>
           <button
             type="button"
             className="btn cancel"
-            onClick={() => closeModel(false)}
+            onClick={() => {
+              confirm(false);
+              closeModel(false);
+            }}
           >
             {btnNo}
           </button>

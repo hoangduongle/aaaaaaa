@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react";
 import "./table.scss";
 import UserEdit from "../User/useredit.component";
 import ConfirmPopup from "../Confirm/ConfirmPopup";
+import * as deleteStaffs from "../../api/Staff/deleteStaff";
 
 const TableStaff = (props) => {
   const [dataShow, setDataShow] = useState([]);
@@ -28,6 +29,7 @@ const TableStaff = (props) => {
   const [popupEdit, setPopupEdit] = useState(false);
   const [popupDelete, setPopupDelete] = useState(false);
   const [newId, setNewId] = useState("");
+  const [confirm, setConfirm] = useState(false);
 
   const selectPage = (page) => {
     const start = Number(props.limit) * page;
@@ -47,6 +49,20 @@ const TableStaff = (props) => {
     setPopupDelete(!popupDelete);
   };
 
+  if (confirm) {
+    const fetchApi = async (staffId) => {
+      setConfirm(false);
+      //loading = true
+      const result = await deleteStaffs.remove(staffId);
+      if (result.status === 200) {
+        setPopupDelete(false);
+        window.location.reload();
+      }
+      console.log("Staffs API: ", result.status);
+      //loading = false
+    };
+    fetchApi(newId);
+  }
   return (
     <div>
       {popupEdit ? (
@@ -60,7 +76,7 @@ const TableStaff = (props) => {
           title={"Bạn có muốn xoá nhân viên này không?"}
           btnYes={"Có"}
           btnNo={"Không"}
-          id={newId}
+          confirm={setConfirm}
         />
       ) : (
         Fragment
@@ -84,7 +100,7 @@ const TableStaff = (props) => {
                     <td>#{item.staffId}</td>
                     <td>{item.staffFullName}</td>
                     <td>{item.theAccountForStaff.roleId}</td>
-                    {item.theAccountForStaff.status ? (
+                    {item.staffStatus ? (
                       <td className="status green">Hoạt động</td>
                     ) : (
                       <td className="status red">Không hoạt động</td>
