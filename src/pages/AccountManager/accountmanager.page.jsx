@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import * as viewStaffs from "../../api/Staff/viewStaffs";
 import AdminPage from "../../components/AdminPage/adminpage.component";
 import TableStaff from "../../components/MyTable/TableStaff";
+import UserCreate from "../../components/User/usercreate.component";
 
 function AccountManager() {
   const staffTableHead = [
@@ -27,6 +28,7 @@ function AccountManager() {
   );
 
   const [staffs, setStaffs] = useState([]);
+  const [createPopup, setCreatePopup] = useState(false);
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -41,12 +43,19 @@ function AccountManager() {
 
   return (
     <div>
+      {createPopup ? <UserCreate closeModel={setCreatePopup} /> : Fragment}
+
       <AdminPage>
         <div className="toptable">
           <h1 style={{ marginLeft: "30px" }}>Danh sách nhân viên</h1>
           <div className="topnav__right">
             <div className="topnav__right-item">
-              <div className="button">Thêm nhân viên +</div>
+              <div
+                className="button"
+                onClick={() => setCreatePopup(!createPopup)}
+              >
+                Thêm nhân viên +
+              </div>
             </div>
             <div className="topnav__right-item">
               <div className="topnav__search">

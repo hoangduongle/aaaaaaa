@@ -4,6 +4,7 @@ import "./table.scss";
 import UserEdit from "../User/useredit.component";
 import ConfirmPopup from "../Confirm/ConfirmPopup";
 import * as deleteStaffs from "../../api/Staff/deleteStaff";
+import * as getRole from "../../api/Role/getRole";
 
 const TableStaff = (props) => {
   const [dataShow, setDataShow] = useState([]);
@@ -30,6 +31,7 @@ const TableStaff = (props) => {
   const [popupDelete, setPopupDelete] = useState(false);
   const [newId, setNewId] = useState("");
   const [confirm, setConfirm] = useState(false);
+  const [dataRole, setDataRole] = useState([]);
 
   const selectPage = (page) => {
     const start = Number(props.limit) * page;
@@ -38,6 +40,22 @@ const TableStaff = (props) => {
     setDataShow(props.bodyData.slice(start, end));
     setCurrPage(page);
   };
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      //loading = true
+      const result = await getRole.view();
+      setDataRole(result);
+
+      console.log("Staffs API: ", result);
+      //loading = false
+    };
+    fetchApi();
+  }, []);
+
+  function getRoleName(id) {
+    return dataRole.find((item) => item.roleId === id)["roleName"];
+  }
 
   const showEdit = (props) => {
     setNewId(props);
@@ -99,7 +117,7 @@ const TableStaff = (props) => {
                   <tr>
                     <td>#{item.staffId}</td>
                     <td>{item.staffFullName}</td>
-                    <td>{item.theAccountForStaff.roleId}</td>
+                    <td>{getRoleName(item.theAccountForStaff.roleId)}</td>
                     {item.staffStatus ? (
                       <td className="status green">Hoạt động</td>
                     ) : (
